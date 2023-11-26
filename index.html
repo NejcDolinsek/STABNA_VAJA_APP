@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: stretch; /* Ensure boxes stretch vertically */
+            height: 100vh;
+            margin: 0;
+        }
+
+        #left-box {
+            flex: 2; /* Double the size */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #stopwatch-container {
+            flex: 1;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #stopwatch {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #time-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 40px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: #fff;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+<div id="left-box">
+    <h2>Štabna vaja PGD Lukovica</h2>
+    <div>Začetek vaje</div>
+    <div id="events-container"></div>
+    <button onclick="displayEvents()">Prikaz dogodka</button>
+</div>
+
+<div id="stopwatch-container">
+    <h1>Aktualni časovni pas: GMT +1</h1>
+    <div id="stopwatch">00:00</div>
+    <div id="controls">
+        <div id="time-inputs">
+            <label for="hours">Ura:</label>
+            <input type="number" id="hours" value="0" min="0" max="23">
+            <label for="minutes">Min:</label>
+            <input type="number" id="minutes" value="0" min="0" max="59">
+        </div>
+        <button onclick="startStop()">Start/Stop</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+</div>
+
+<script>
+    let timer;
+    let isRunning = false;
+    let minutes = 0;
+    let hours = 0;
+
+    function startStop() {
+        if (isRunning) {
+            clearInterval(timer);
+            isRunning = false;
+        } else {
+            hours = parseInt(document.getElementById('hours').value, 10) || 0;
+            minutes = parseInt(document.getElementById('minutes').value, 10) || 0;
+            updateDisplay();
+            timer = setInterval(updateStopwatch, 3000); // Updated to 1000 milliseconds (1 second)
+            isRunning = true;
+        }
+    }
+
+    function reset() {
+        clearInterval(timer);
+        isRunning = false;
+        minutes = 0;
+        hours = 0;
+        document.getElementById('hours').value = '0';
+        document.getElementById('minutes').value = '0';
+        updateDisplay();
+        startStop(); // Added to restart the stopwatch after resetting
+    }
+
+    function updateStopwatch() {
+        minutes++;
+
+        if (minutes === 60) {
+            minutes = 0;
+            hours++;
+
+            if (hours === 24) {
+                // Reset to 00:00 when it reaches 23:59
+                hours = 0;
+            }
+        }
+
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const display = document.getElementById('stopwatch');
+        display.textContent = `${formatTime(hours)}:${formatTime(minutes)}`;
+    }
+
+    function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+    }
+</script>
+
+
+<script>
+    // Events script
+    let events = ['DOGODEK 1', 'DOGODEK 2', 'DOGODEK 3', 'DOGODEK 4', 'DOGODEK 5', 'DOGODEK 6', 'DOGODEK 7', 'DOGODEK 8', 'DOGODEK 9'];
+
+    function displayEvents() {
+        const eventsContainer = document.getElementById('events-container');
+
+        if (events.length === 0) {
+            alert('All events have been shown!');
+            return;
+        }
+
+        shuffleArray(events);
+
+        const eventDiv = document.createElement('div');
+        eventDiv.textContent = events[0]; // Use events[0] since the array is shuffled
+
+        eventsContainer.appendChild(eventDiv);
+
+        // Remove the displayed event from the array
+        events.shift(); // Use shift to remove the first element of the array
+
+        if (events.length === 0) {
+            alert('All events are shown!');
+        }
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+</script>
+
+</body>
+
+</html>
