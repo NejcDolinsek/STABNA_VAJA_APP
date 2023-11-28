@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stopwatch</title>
+    <title>Štabna vaja PGD Lukovica</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -12,21 +12,22 @@
             display: flex;
             gap: 20px;
             justify-content: center;
-            align-items: stretch; /* Ensure boxes stretch vertically */
+            align-items: stretch;
             height: 100vh;
-            margin: 0;
+            margin: 10px;
         }
 
         #left-box {
-            flex: 2; /* Double the size */
+            flex: 2;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+
         #stopwatch-container {
-            flex: 1;
+            flex: 0.7;
             text-align: center;
             background-color: #fff;
             padding: 20px;
@@ -38,22 +39,22 @@
         }
 
         #stopwatch {
-            font-size: 3em;
+            font-size: 8em;
             margin-bottom: 20px;
             color: #333;
         }
 
-        #controls {
+        #controls-input {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
         }
 
         #time-inputs {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
         }
 
         label {
@@ -75,38 +76,85 @@
             color: #fff;
             outline: none;
             transition: background-color 0.3s;
+            width: 150px;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #2e6b30;
+        }
+
+        #events-container {
+            background-color: #d2d2d2;
+            color: #000000;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.5em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            line-height: 1.5;
+        }
+
+        #events-container:hover {
+            background-color: #d2d2d2;
+        }
+
+        #controls-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #start-stop-btn, #reset-btn {
+            font-size: 1em;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: #fff;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        #start-stop-btn:hover, #reset-btn:hover {
+            background-color: #2e6b30;
+        }
+
+        #prikaz-button{
+            width: 200px;
         }
     </style>
+
 </head>
 
 <body>
 <div id="left-box">
-    <h2>Štabna vaja PGD Lukovica</h2>
-    <div>Začetek vaje</div>
+    <h1>Štabna vaja PGD Lukovica</h1>
+    <button id=prikaz-button onclick="displayEvents()">Prikaz dogodka</button>
     <div id="events-container"></div>
-    <button onclick="displayEvents()">Prikaz dogodka</button>
 </div>
 
 <div id="stopwatch-container">
     <h1>Aktualni časovni pas: GMT +1</h1>
     <div id="stopwatch">00:00</div>
-    <div id="controls">
+    <div id="controls-input">
         <div id="time-inputs">
             <label for="hours">Ura:</label>
             <input type="number" id="hours" value="0" min="0" max="23">
             <label for="minutes">Min:</label>
             <input type="number" id="minutes" value="0" min="0" max="59">
         </div>
-        <button onclick="startStop()">Start/Stop</button>
-        <button onclick="reset()">Reset</button>
+        <div id="controls-buttons">
+            <button id="start-stop-btn" onclick="startStop()">Start/Stop</button>
+            <button id="reset-btn" onclick="reset()">Reset</button>
+        </div>
     </div>
 </div>
 
 <script>
+
     let timer;
     let isRunning = false;
     let minutes = 0;
@@ -119,8 +167,21 @@
         } else {
             hours = parseInt(document.getElementById('hours').value, 10) || 0;
             minutes = parseInt(document.getElementById('minutes').value, 10) || 0;
+
+            // Validation check for hours
+            if (hours > 23) {
+                alert("Vnesite veljavno vrednost za ure (0-23).");
+                return;
+            }
+
+            // Validation check for minutes
+            if (minutes > 59) {
+                alert("Vnesite veljavno vrednost za minute (0-59).");
+                return;
+            }
+
             updateDisplay();
-            timer = setInterval(updateStopwatch, 3000); // Updated to 1000 milliseconds (1 second)
+            timer = setInterval(updateStopwatch, 10000); // Updated to 1000 milliseconds (1 second)
             isRunning = true;
         }
     }
@@ -165,28 +226,42 @@
 
 <script>
     // Events script
-    let events = ['DOGODEK 1', 'DOGODEK 2', 'DOGODEK 3', 'DOGODEK 4', 'DOGODEK 5', 'DOGODEK 6', 'DOGODEK 7', 'DOGODEK 8', 'DOGODEK 9'];
+    let events = [
+        'Poplave Trnjava - 14 hiš',
+        'Poplave Lukovica center - 9 hiš',
+        'Podrta drevesa cesta Čeplje, Brezovica - 6 lokacij',
+        'Udar strele v hišo - Mala Lašna (Novo naselje) še 2 hiši ogroženi',
+        'Udar strele - Žaga Videm',
+        'Eksplozija plina - vrtec Medo',
+        'Prometna nesreča v križišču Lukovica',
+        'Zdrs vozila, več ujetih - cesta proti Zlatem polju',
+        'Pomoč reševalcem - AED',
+        'Nesreča gasilcev na poti v Trnovče'
+    ];
+
+    let eventCounter = 1; // Variable to track the event number
 
     function displayEvents() {
         const eventsContainer = document.getElementById('events-container');
 
         if (events.length === 0) {
-            alert('All events have been shown!');
+            alert('Vsi dogodki so prikazani!');
             return;
         }
 
         shuffleArray(events);
 
         const eventDiv = document.createElement('div');
-        eventDiv.textContent = events[0]; // Use events[0] since the array is shuffled
+        eventDiv.textContent = `${eventCounter}. ${events[0]}`; // Display event with number
+        eventCounter++; // Increment the event counter
 
         eventsContainer.appendChild(eventDiv);
 
         // Remove the displayed event from the array
-        events.shift(); // Use shift to remove the first element of the array
+        events.shift();
 
         if (events.length === 0) {
-            alert('All events are shown!');
+            alert('Prikazan bo zadnji dogodek!');
         }
     }
 
@@ -196,6 +271,7 @@
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+
 </script>
 
 </body>
