@@ -19,13 +19,28 @@ function startStop() {
 
         // Validate input for hours
         if (hours > 23) {
-            alert("Please enter a valid value for hours (0-23).");
+            //alert("Please enter a valid value for hours (0-23).");
+            Swal.fire({
+                icon: 'info',
+                title: 'Prosimo, vnesite veljavno vrednost za ure (0-23).',
+                customClass: {
+                    container: 'sweet-alert', // Use the custom class here
+                },
+            });
             return;
         }
 
         // Validate input for minutes
         if (minutes > 59) {
-            alert("Please enter a valid value for minutes (0-59).");
+            //alert("Please enter a valid value for minutes (0-59).");
+            Swal.fire({
+                icon: 'info',
+                title: 'Prosimo, vnesite veljavno vrednost za minute (0-59).',
+                customClass: {
+                    container: 'sweet-alert', // Use the custom class here
+                },
+
+            });
             return;
         }
 
@@ -110,7 +125,14 @@ function displayEvents() {
     const eventsContainer = document.getElementById('events-container');
 
     if (events.length === 0) {
-        alert('All events have been displayed!');
+        //alert('All events have been displayed!');
+        Swal.fire({
+            icon: 'info',
+            title: 'Prikazani so bili vsi dogodki!',
+            customClass: {
+                container: 'sweet-alert', // Use the custom class here
+            },
+        });
         return;
     }
 
@@ -128,9 +150,7 @@ function displayEvents() {
     // Remove the displayed event from the array
     events.shift();
 
-    if (events.length === 0) {
-        alert('The last event will be displayed!');
-    }
+
 }
 
 /**

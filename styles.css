@@ -117,3 +117,15 @@ button:hover {
 #prikaz-button{
     width: 200px;
 }
+
+.sweet-alert {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Add this to your existing CSS styles */
+body.swal2-shown {
+    overflow: hidden;
+}
+
+
+
