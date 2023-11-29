@@ -51,6 +51,7 @@ function startStop() {
     }
 }
 
+
 /**
  * Reset the stopwatch to its initial state.
  */
@@ -100,66 +101,4 @@ function updateDisplay() {
  */
 function formatTime(time) {
     return time < 10 ? `0${time}` : time;
-}
-
-// Events script
-let events = [
-    'Poplave Trnjava - 14 hiš',
-    'Poplave Lukovica center - 9 hiš',
-    'Podrta drevesa cesta Čeplje, Brezovica - 6 lokacij',
-    'Udar strele v hišo - Mala Lašna (Novo naselje) še 2 hiši ogroženi',
-    'Udar strele - Žaga Videm',
-    'Eksplozija plina - vrtec Medo',
-    'Prometna nesreča v križišču Lukovica',
-    'Zdrs vozila, več ujetih - cesta proti Zlatem polju',
-    'Pomoč reševalcem - AED',
-    'Nesreča gasilcev na poti v Trnovče'
-];
-
-let eventCounter = 1; // Variable to track the event number
-
-/**
- * Display events from the events array.
- */
-function displayEvents() {
-    const eventsContainer = document.getElementById('events-container');
-
-    if (events.length === 0) {
-        //alert('All events have been displayed!');
-        Swal.fire({
-            icon: 'info',
-            title: 'Prikazani so bili vsi dogodki!',
-            customClass: {
-                container: 'sweet-alert', // Use the custom class here
-            },
-        });
-        return;
-    }
-
-    // Shuffle the events array randomly
-    shuffleArray(events);
-
-    // Create a new div for the displayed event
-    const eventDiv = document.createElement('div');
-    eventDiv.textContent = `${eventCounter}. ${events[0]}`; // Display event with number
-    eventCounter++; // Increment the event counter
-
-    // Append the event div to the container
-    eventsContainer.appendChild(eventDiv);
-
-    // Remove the displayed event from the array
-    events.shift();
-
-
-}
-
-/**
- * Shuffle an array randomly.
- * @param {Array} array - The array to be shuffled.
- */
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
 }
