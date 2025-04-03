@@ -104,16 +104,19 @@ function formatTime(time) {
 
 // Events script
 let events = [
-    'Poplave Trnjava - 14 hiš',
-    'Poplave Lukovica center - 9 hiš',
-    'Podrta drevesa cesta Čeplje, Brezovica - 6 lokacij',
-    'Udar strele v hišo - Mala Lašna (Novo naselje) še 2 hiši ogroženi',
-    'Udar strele - Žaga Videm',
-    'Eksplozija plina - vrtec Medo',
-    'Prometna nesreča v križišču Lukovica',
-    'Zdrs vozila, več ujetih - cesta proti Zlatem polju',
-    'Pomoč reševalcem - AED',
-    'Nesreča gasilcev na poti v Trnovče'
+'Lokalno neurje poplave Blagovica 9 hiš (več hiš poplavljenih, eno gospodarsko poslopje ima večje število živali).',
+'Udar strele gostišče Trojane več poškodovanih manjši požar.',
+'Prometna nesreča zdrs vozila v potok (2 osebi v vozilu ki ga zaliva voda) – Blagovica.',
+'Tehnična pomoč reševalcem – Sp. Prapreče kmetija KIC bala na človeku.',
+'Masovna prometna nesreča Petrol Lukovica udeleženih 7 vozil, 1 avtobus( avtobus se je zaletel v črpalko in gori več ljudi ujetih v vozilih in v trgovini črpalke).',
+'Drevo je padlo na vozilo Koseze – Lukovica.',
+'Manjši požar v kuhinji gostišče Čebelica 2 nadihana dima.',
+'Pogrešana oseba Blagovica (odnesla ga je voda).',
+'Poškodba pri športnih aktivnostih – Sončna dvorana Brdo.',
+'Pomoč reševalcem AED Zlato polje.',
+'Prometna nesreča prevoje pri vrtcu Medo (2 vozila in pešec).',
+'Požar bloka Prevoje- več ujetih v stavbi in večje število ponesrečenih.',
+'Eksplozija plina stari trg 1 več poškodovanih stavba močno gori.'
 ];
 
 let eventCounter = 1; // Variable to track the event number
